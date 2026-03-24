@@ -1,4 +1,3 @@
-
 num_seeds = 10
 n_train_fMNIST = 1000
 n_test_fMNIST = 1000

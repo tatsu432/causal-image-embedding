@@ -1,13 +1,89 @@
-# Ignore Python cache 
+# --- Python bytecode & caches ---
 __pycache__/
+*.py[cod]
+*$py.class
+*.so
 
-# Ignore Jupyter notebooks' checkpoints
+README_example.md
+
+# --- Virtual environments ---
+.venv/
+venv/
+ENV/
+env/
+.env/
+
+# --- Packaging / build ---
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --- Installer logs ---
+pip-log.txt
+pip-delete-this-directory.txt
+
+# --- Testing & coverage ---
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# --- Type checkers & linters ---
+.mypy_cache/
+.ruff_cache/
+.dmypy.json
+dmypy.json
+
+# --- Jupyter ---
 .ipynb_checkpoints/
 
-# Ignore system files
-.DS_Store
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
 
-# Ignore practice files
+# --- pyenv ---
+.python-version
+
+# --- IDE ---
+.idea/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- ML / saved models (large binaries) ---
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# --- Logs ---
+*.log
+
+# --- Project-specific ---
+# Practice / scratch
 z_practice/
 
 # Ignore some of the images

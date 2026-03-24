@@ -1,21 +1,22 @@
 import torch
 from torch import nn
 
-from autoencoder import Encoder, Decoder
+from autoencoder import Decoder, Encoder
+
 
 class DebiasedEmbeddingNet(nn.Module):
     def __init__(self, covariate_dim: int, covariate_image_dim: int, post_treatment_dim: int):
         super().__init__()
-        self.covariate_image_encoder = Encoder(latent_dim = covariate_image_dim)
-        self._post_treatment_encoder = Encoder(latent_dim = post_treatment_dim)
-        self._decoder = Decoder(latent_dim = covariate_image_dim + post_treatment_dim)
+        self.covariate_image_encoder = Encoder(latent_dim=covariate_image_dim)
+        self._post_treatment_encoder = Encoder(latent_dim=post_treatment_dim)
+        self._decoder = Decoder(latent_dim=covariate_image_dim + post_treatment_dim)
 
         self._treatment_predictor = nn.Sequential(
             nn.Linear(covariate_dim + covariate_image_dim, 512),
             nn.ReLU(),
             nn.BatchNorm1d(512),
             nn.Linear(512, 1),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
 
         self._post_treatment_predictor = nn.Sequential(
@@ -23,19 +24,19 @@ class DebiasedEmbeddingNet(nn.Module):
             nn.ReLU(),
             nn.BatchNorm1d(512),
             nn.Linear(512, post_treatment_dim),
-            nn.Sigmoid()
+            nn.Sigmoid(),
         )
 
         self._outcome_predictor = nn.Sequential(
             nn.Linear(covariate_dim + 1 + covariate_image_dim + post_treatment_dim, 1024),
             nn.ReLU(),
             nn.BatchNorm1d(1024),
-            nn.Linear(1024, 1)
+            nn.Linear(1024, 1),
         )
-        
+
     def forward(self, x, d, v, y):
         """
-        x: covariate 
+        x: covariate
         d: treatment
         v: image (we will create a covariate image and post-treatment from this)
         y: outcome
@@ -43,7 +44,7 @@ class DebiasedEmbeddingNet(nn.Module):
         # Create a covariate image and post-treatment from the image
         x_v = self.covariate_image_encoder(v)
         p_v = self._post_treatment_encoder(v)
-        
+
         # Concatenate the covariate image and post-treatment
         z = torch.cat([x_v, p_v], dim=-1)
 
@@ -62,4 +63,3 @@ class DebiasedEmbeddingNet(nn.Module):
         hat_y = hat_y.squeeze(-1)
 
         return x_v, p_v, hat_p_v, hat_d, hat_y, hat_v
-        
