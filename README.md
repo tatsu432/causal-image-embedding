@@ -8,7 +8,7 @@
   <a href="https://drive.google.com/file/d/1ZecUEefvwy3h-oVJgvl-_YHJxySl0OeH"><img src="https://img.shields.io/badge/slides-Final_Project-34A853?logo=googledrive&logoColor=white" alt="Final project slides (Google Drive)" /></a>
 </p>
 
-Code for a causal inference where images act as both mediators and confounders: learn image embeddings (naive vs. debiased nets), then compare **biased**, **naive**, and **debiased** pipelines using regression, IPW, and doubly robust ATE estimators. 
+This repository implements **image embeddings for causal inference** when a single image encodes both information that estimators *should* condition on (image-side covariates) and information they *should not* (post-treatment variation). We use a **debiased architecture** with separate encoders for those two roles, joint reconstruction of the image together with treatment and outcome, and compare **biased**, **naive**, and **debiased** pipelines with regression, IPW, and doubly robust ATE estimators. On **semi-synthetic Fashion-MNIST**, the proposed embedding improves causal effect estimation relative to standard estimators and naive embedding baselines.
 
 ## Documentation
 
